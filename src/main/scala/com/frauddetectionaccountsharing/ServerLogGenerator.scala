@@ -3,7 +3,7 @@ package com.frauddetectionaccountsharing
 import com.frauddetectionaccountsharing.model.ServerLog
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 
-import java.time.Instant
+import java.time.{Instant, LocalTime}
 import java.util.Properties
 import java.util.UUID.randomUUID
 import scala.util.Random
@@ -37,20 +37,22 @@ object ServerLogGenerator {
   }
 
   def main(args: Array[String]): Unit = {
-    val props = getProperties()
+    val props = getProperties
     val topic: String = "server-logs"
 
     val producer = new KafkaProducer[String, String](props)
     var i = 0
 
     while (i < 100000) {
-      val log: ServerLog = getServerLog()
+      val log: ServerLog = getServerLog
       val record = new ProducerRecord[String, String](topic, log.eventId, log.toString)
       producer.send(record)
       i = i + 1
     }
 
     producer.close()
+
+    print(s"Generated logs at: ${LocalTime.now()}")
   }
 
 }

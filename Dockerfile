@@ -4,7 +4,7 @@ COPY ./ /opt/frauddetection
 WORKDIR /opt/frauddetection
 RUN mvn clean install
 
-FROM flink:1.11.0-scala_2.11
+FROM flink:1.12.0-scala_2.11
 
 WORKDIR /opt/flink/bin
 
