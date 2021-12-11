@@ -41,14 +41,14 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_DB: "events"
-      POSTGRES_USER: "startdataengineer"
+      POSTGRES_USER: "frauddetectionaccountsharing"
       POSTGRES_PASSWORD: "password"
     volumes:
       - ./dbsetup:/docker-entrypoint-initdb.d
   serverloggenerator:
     build: ./
     image: sde:1-FLINK-1.11-scala_2.11
-    command: "java -classpath /opt/frauddetection.jar:/opt/flink/lib/* com.startdataengineering.ServerLogGenerator"
+    command: "java -classpath /opt/frauddetection.jar:/opt/flink/lib/* com.frauddetectionaccountsharing.ServerLogGenerator"
     depends_on:
       - kafka
   frauddetection:
